@@ -1,41 +1,61 @@
 let todos = [];
 
-document.querySelector('.new-todo').onkeypress = function(e) {
-	if (e.key === 'Enter' && this.value) {
-		todos.push({ text: this.value, done: false });
-		this.value = '';
-		show();
-	}
-};
+const input = document.querySelector('.new-todo');
+const prioritySelect = document.querySelector('.priority-select');
+const list = document.querySelector('.todo-list');
+const count = document.querySelector('.todo-count');
+const clearCompletedBtn = document.querySelector('.clear-completed');
 
-function show() {
-	const list = document.querySelector('.todo-list');
-	list.innerHTML = '';
-	
-	todos.forEach((todo, i) => {
-		list.innerHTML += `
-			<li class="${todo.done ? 'completed' : ''}">
-				<div class="view">
-					<input class="toggle" type="checkbox" ${todo.done ? 'checked' : ''} onchange="toggle(${i})">
-					<label>${todo.text}</label>
-					<button class="destroy" onclick="remove(${i})"></button>
-				</div>
-			</li>
-		`;
-	});
-	
-	const left = todos.filter(t => !t.done).length;
-	document.querySelector('.todo-count').innerHTML = `<strong>${left}</strong> left`;
+input.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && input.value.trim() !== '') {
+    todos.push({
+      text: input.value.trim(),
+      priority: prioritySelect.value
+    });
+
+    input.value = '';
+    prioritySelect.value = "low";
+    render();
+  }
+});
+
+function render() {
+  list.innerHTML = '';
+
+  todos.forEach((todo, index) => {
+    const li = document.createElement('li');
+
+    li.innerHTML = `
+      <div class="view">
+        <label>${todo.text}</label>
+        <span class="priority ${todo.priority}">${todo.priority}</span>
+      </div>
+    `;
+
+    // Bouton supprimer
+    const destroyBtn = document.createElement('button');
+    destroyBtn.className = 'destroy';
+    destroyBtn.addEventListener('click', () => {
+      todos.splice(index, 1);
+      render();
+    });
+
+    li.querySelector('.view').appendChild(destroyBtn);
+
+    list.appendChild(li);
+  });
+
+  updateCount();
 }
 
-function toggle(i) {
-	todos[i].done = !todos[i].done;
-	show();
+function updateCount() {
+  const total = todos.length;
+  count.innerHTML = `<strong>${total}</strong> total`;
 }
 
-function remove(i) {
-	todos.splice(i, 1);
-	show();
-}
+clearCompletedBtn.addEventListener('click', () => {
+  todos = [];
+  render();
+});
 
-show();
+render();

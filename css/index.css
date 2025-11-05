@@ -4,6 +4,20 @@ body {
   padding: 0;
 }
 
+body {
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  background: #f5f5f5;
+  color: #4d4d4d;
+  min-width: 230px;
+  max-width: 550px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-weight: 300;
+}
+
 button {
   margin: 0;
   padding: 0;
@@ -21,20 +35,6 @@ button {
   font-smoothing: antialiased;
 }
 
-body {
-  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.4em;
-  background: #f5f5f5;
-  color: #4d4d4d;
-  min-width: 230px;
-  max-width: 550px;
-  margin: 0 auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-  font-weight: 300;
-}
-
 button,
 input[type="checkbox"] {
   outline: none;
@@ -42,6 +42,27 @@ input[type="checkbox"] {
 
 .hidden {
   display: none;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+ul.navMenu {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  color: black;
+  list-style: none;
+}
+
+.navA {
+  text-decoration: none;
+  color: black;
+  font-weight: 400;
+  font-size: 15px;
 }
 
 .todoapp {
@@ -110,6 +131,42 @@ input[type="checkbox"] {
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 }
 
+.add-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e6e6e6;
+  background: #fafafa;
+}
+
+.add-box .new-todo {
+  flex: 1;
+  margin: 0;
+}
+
+.priority-select {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  transition: 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='20' width='20' viewBox='0 0 20 20'><polygon points='5,7 15,7 10,12'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 28px;
+}
+
+.priority-select:hover {
+  border-color: #bbb;
+}
+
 .main {
   position: relative;
   z-index: 2;
@@ -127,7 +184,7 @@ label[for="toggle-all"] {
   width: 60px;
   height: 34px;
   text-align: center;
-  border: none; /* Mobile Safari */
+  border: none;
 }
 
 .toggle-all:before {
@@ -162,6 +219,10 @@ label[for="toggle-all"] {
   padding: 0;
 }
 
+.todo-list li.editing:last-child {
+  margin-bottom: -1px;
+}
+
 .todo-list li.editing .edit {
   display: block;
   width: 506px;
@@ -173,33 +234,24 @@ label[for="toggle-all"] {
   display: none;
 }
 
-.todo-list li .toggle {
-  text-align: center;
-  width: 40px;
-  /* auto, since non-WebKit browsers doesn't support input styling */
-  height: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
-  border: none; /* Mobile Safari */
-  -webkit-appearance: none;
-  appearance: none;
+.todo-list li .edit {
+  display: none;
 }
 
-.todo-list li .toggle:after {
-  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
+.todo-list li .view {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  position: relative;
 }
 
-.todo-list li .toggle:checked:after {
-  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
-}
-
-.todo-list li label {
+.todo-list li .view label {
+  flex: 1;
+  margin-left: 10px;
+  font-size: 16px;
   white-space: pre-line;
   word-break: break-all;
   padding: 15px 60px 15px 15px;
-  margin-left: 45px;
   display: block;
   line-height: 1.2;
   transition: color 0.4s;
@@ -210,39 +262,96 @@ label[for="toggle-all"] {
   text-decoration: line-through;
 }
 
-.todo-list li .destroy {
+.todo-list li .toggle {
+  text-align: center;
+  width: 40px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto 0;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+
+.priority {
+  margin-left: auto;
+  margin-right: 50px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  text-transform: capitalize;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.priority::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.priority.low {
+  background: #e7fff1;
+  color: #157a3d;
+}
+
+.priority.low::before {
+  background: #157a3d;
+}
+
+.priority.medium {
+  background: #fff8df;
+  color: #a47500;
+}
+
+.priority.medium::before {
+  background: #a47500;
+}
+
+.priority.high {
+  background: #ffe4e4;
+  color: #c93434;
+}
+
+.priority.high::before {
+  background: #c93434;
+}
+
+.todo-list li:hover .priority {
+  filter: brightness(1.05);
+}
+
+.destroy {
   display: none;
   position: absolute;
   top: 0;
   right: 10px;
   bottom: 0;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   margin: auto 0;
-  font-size: 30px;
-  color: #cc9a9a;
-  margin-bottom: 11px;
-  transition: color 0.2s ease-out;
+  cursor: pointer;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" fill="%23cc9a9a" xmlns="http://www.w3.org/2000/svg"><path d="M14.348 5.652a.5.5 0 0 0-.707 0L10 9.293 6.36 5.652a.5.5 0 1 0-.707.707L9.293 10l-3.64 3.64a.5.5 0 0 0 .707.707L10 10.707l3.64 3.64a.5.5 0 0 0 .707-.707L10.707 10l3.64-3.64a.5.5 0 0 0 0-.708z"/></svg>') no-repeat center;
+  background-size: 16px;
+  border: none;
+  opacity: 0.5;
+  transition: opacity 0.2s ease-out;
 }
 
-.todo-list li .destroy:hover {
-  color: #af5b5e;
-}
-
-.todo-list li .destroy:after {
-  content: "×";
+.destroy:hover {
+  opacity: 1;
 }
 
 .todo-list li:hover .destroy {
   display: block;
-}
-
-.todo-list li .edit {
-  display: none;
-}
-
-.todo-list li.editing:last-child {
-  margin-bottom: -1px;
 }
 
 .footer {
@@ -313,7 +422,6 @@ html .clear-completed:active {
   line-height: 20px;
   text-decoration: none;
   cursor: pointer;
-  position: relative;
 }
 
 .clear-completed:hover {
@@ -342,28 +450,6 @@ html .clear-completed:active {
   text-decoration: underline;
 }
 
-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-ul.navMenu {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  color: black;
-  list-style: none;
-}
-.navA {
-  text-decoration: none;
-  color: black;
-  font-weight: 400;
-  font-size: 15px;
-}
-/*
-	Hack to remove background from Mobile Safari.
-	Can't use it globally since it destroys checkboxes in Firefox
-*/
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   .toggle-all,
   .todo-list li .toggle {
