@@ -20,7 +20,17 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   clearBtn.addEventListener('click', function() {
+
     todoList.innerHTML = '';
+
+    if (window.todos) {
+      todos.length = 0;
+    }
+
+    if (window.localStorage) {
+      localStorage.clear();
+    }
+
     updateCount();
   });
 
