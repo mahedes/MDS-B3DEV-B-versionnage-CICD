@@ -18,11 +18,15 @@
     </header>
     <section class="todoapp">
       <section class="main">
-        <input
-          class="new-todo"
-          placeholder="What needs to be done?"
-          autofocus
-        />
+      <div class="add-box">
+      <input class="new-todo" placeholder="What needs to be done?" autofocus />
+      <select class="priority-select">
+        <option value="low">Faible</option>
+        <option value="medium">Moyenne</option>
+        <option value="high">Haute</option>
+      </select>
+    </div>
+
         <input class="toggle-all" type="checkbox" />
         <label for="toggle-all">Mark all as complete</label>
         <ul class="todo-list"></ul>
