@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" data-framework="javascript">
-  <head>
-    <meta charset="utf-8" />
-    <title>To-do list app</title>
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/index.css" />
-  </head>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo List</title>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
 
-  <body>
-    <header>
-      <h1>ToDoList</h1>
-      <ul class="navMenu">
-        <li class="navli"><a class="navA" href="#Accueil">Accueil</a></li>
-        <li class="navli"><a class="navA" href="#Todolist">TodoList</a></li>
-        <li class="navli"><a class="navA" href="#Info">Info</a></li>
-      </ul>
-    </header>
-    <section class="todoapp">
-      <section class="main">
-      <div class="add-box">
-      <input class="new-todo" placeholder="What needs to be done?" autofocus />
+<body>
+  <header>
+    <h1>Todo List</h1>
+    <ul class="navMenu">
+      <li><a class="navA" href="#Accueil">Accueil</a></li>
+      <li><a class="navA" href="#Todolist">TodoList</a></li>
+      <li><a class="navA" href="#Info">Info</a></li>
+    </ul>
+  </header>
+
+  <section class="todoapp">
+    <div class="add-box">
+      <input class="new-todo" placeholder="Ajouter une tâche..." autofocus />
       <select class="priority-select">
         <option value="low">Faible</option>
         <option value="medium">Moyenne</option>
@@ -27,32 +27,21 @@
       </select>
     </div>
 
-        <input class="toggle-all" type="checkbox" />
-        <label for="toggle-all">Mark all as complete</label>
-        <ul class="todo-list"></ul>
-      </section>
-      <footer class="footer">
-        <span class="todo-count"></span>
-        <ul class="filters">
-          <li>
-            <a href="#/" class="selected">All</a>
-          </li>
-          <li>
-            <a href="#/active">Active</a>
-          </li>
-          <li>
-            <a href="#/completed">Completed</a>
-          </li>
-        </ul>
-        <button class="clear-completed">Clear completed</button>
-      </footer>
+    <section class="main">
+      <ul class="todo-list"></ul>
     </section>
-    <footer class="info">
-      <p>Double-click to edit a todo</p>
-      <p>Created by Oscar Godson</p>
-      <p>Refactored by Christoph Burgmer</p>
+
+    <footer class="footer">
+      <span class="todo-count"><strong>0</strong> restante(s)</span>
+      <ul class="filters">
+        <li><a href="#/" class="selected">Toutes</a></li>
+        <li><a href="#/active">Actives</a></li>
+        <li><a href="#/completed">Terminées</a></li>
+      </ul>
+      <button class="clear-completed">Effacer</button>
     </footer>
-    <script src="js/app.js"></script>
-    <script src="js/fullClear.js"></script>
-  </body>
+  </section>
+
+  <script src="js/index.js"></script>
+</body>
 </html>
