@@ -52,9 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
       const destroyBtn = document.createElement("button");
       destroyBtn.className = "destroy";
       destroyBtn.textContent = "×";
+
       destroyBtn.addEventListener("click", () => {
-        todos.splice(index, 1);
-        render();
+        const confirmation = confirm("Vous êtes sûr de vouloir le supprimer ?");
+        if (confirmation) {
+          todos.splice(index, 1);
+          render();
+        }
       });
 
       li.querySelector(".view").appendChild(destroyBtn);
@@ -79,8 +83,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   clearCompletedBtn.addEventListener("click", () => {
-    todos = [];
-    render();
+    if (todos.length === 0) return;
+
+    const confirmation = confirm("Vous êtes sûr de vouloir tout effacer ?");
+    if (confirmation) {
+      todos = [];
+      render();
+    }
   });
 
   render();
