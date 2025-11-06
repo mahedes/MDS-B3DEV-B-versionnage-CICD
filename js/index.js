@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   let todos = [];
 
   const input = document.querySelector(".new-todo");
@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
     list.innerHTML = "";
 
     if (todos.length === 0) {
-      footer.classList.add('hidden');
-      main.classList.add('empty');
+      footer.classList.add("hidden");
+      main.classList.add("empty");
       return;
     } else {
-      footer.classList.remove('hidden');
-      main.classList.remove('empty');
+      footer.classList.remove("hidden");
+      main.classList.remove("empty");
     }
 
     todos.forEach((todo, index) => {
@@ -42,12 +42,35 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="view">
           <label>${todo.text}
             <small style="display:block; font-size:12px; color:#888; margin-top:4px;">
-              Créé le ${new Date(todo.createdAt).toLocaleDateString('fr-FR')} à ${new Date(todo.createdAt).toLocaleTimeString('fr-FR')}
-            </small>
+  ${
+    todo.updatedAt
+      ? `Modifié le ${new Date(todo.updatedAt).toLocaleDateString(
+          "fr-FR"
+        )} à ${new Date(todo.updatedAt).toLocaleTimeString("fr-FR")}`
+      : `Créé le ${new Date(todo.createdAt).toLocaleDateString(
+          "fr-FR"
+        )} à ${new Date(todo.createdAt).toLocaleTimeString("fr-FR")}`
+  }
+</small>
           </label>
-          <span class="priority ${todo.priority}">${getPriorityText(todo.priority)}</span>
+          <span class="priority ${todo.priority}">${getPriorityText(
+        todo.priority
+      )}</span>
         </div>
       `;
+
+      // Bouton modifier
+      const editBtn = document.createElement("button");
+      editBtn.className = "edit";
+      editBtn.textContent = "✎"; // un petit crayon
+      editBtn.addEventListener("click", () => {
+        const newText = prompt("Modifier la tâche :", todo.text);
+        if (newText && newText.trim() !== "") {
+          todo.text = newText.trim();
+          todo.updatedAt = new Date();
+          render();
+        }
+      });
 
       const destroyBtn = document.createElement("button");
       destroyBtn.className = "destroy";
@@ -57,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         render();
       });
 
+      li.querySelector(".view").appendChild(editBtn);
       li.querySelector(".view").appendChild(destroyBtn);
       list.appendChild(li);
     });
@@ -66,16 +90,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function getPriorityText(priority) {
     const priorities = {
-      low: 'Faible',
-      medium: 'Moyenne',
-      high: 'Haute'
+      low: "Faible",
+      medium: "Moyenne",
+      high: "Haute",
     };
     return priorities[priority] || priority;
   }
 
   function updateCount() {
     const total = todos.length;
-    count.innerHTML = `<strong>${total}</strong> ${total > 1 ? 'restantes' : 'restante'}`;
+    count.innerHTML = `<strong>${total}</strong> ${
+      total > 1 ? "restantes" : "restante"
+    }`;
   }
 
   clearCompletedBtn.addEventListener("click", () => {
